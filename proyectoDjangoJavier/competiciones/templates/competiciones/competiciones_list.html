@@ -1,0 +1,84 @@
+{% extends './header.html'%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Competiciones</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </head>
+  <body>
+  {% block header %}
+  <br>
+      <center><h1>COMPETICIONES DE OUTFIT</h1></center>
+      <br>
+      {% if mensaje == 2 %}
+      <center>
+        <div style="width:60%;" class="alert alert-danger" role="alert">
+          Ya estás apuntado a esta competición
+        </div>
+      </center>
+      {% endif %}
+      {% if mensaje == 1 %}
+      <center>
+        <div style="width:60%;" class="alert alert-success" role="alert">
+          Gracias por apuntarte a la competición
+        </div>
+      </center>
+      {% endif %}
+      <br>
+        <center>
+        {% if request.user.is_staff%}
+          <a  href="{% url 'addCompeticion' %}" class="btn btn-primary">Añadir</a>
+        {% endif %}
+        </center>
+      <br>
+      {% if competiciones %}
+        {% for i in competiciones %}
+        <center>
+        <div class="card" style="width: 20rem;">
+        
+        <br>
+        <h3>{{i.Nombre}}</h3>
+        <br>
+        <p>{{i.Descripcion | safe }}</p>
+          <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Lugar: {{i.Lugar}}</th>
+              </tr>
+              <tr>
+                <th>Fecha: {{i.Fecha}}</th>
+              </tr>
+              
+            </thead>
+          </table>
+            <br><br>
+            <a  href="{% url 'addParticipacion' i.id %}" class="btn btn-success">Participar</a>
+            {% if i.user == request.user or request.user.is_staff%}
+              <a  href="{% url 'updateCompeticion' i.id %}" class="btn btn-info">Editar</a>
+              <a  href="{% url 'delCompeticion' i.id %}" class="btn btn-danger">Eliminar</a>
+            {% endif %}
+          </div>
+          {% if request.user.is_staff%}
+          <a  href="{% url 'participacionesCom' i.id %}" class="btn btn-secondary">Ver listas</a>
+          {% endif %}
+        </div>
+        <br>
+         </center>
+        {% endfor %}
+      {% else %}
+      <center>
+        <div style="width:60%;" class="alert alert-danger" role="alert">
+          Lo sentimos, no tenemos ninguna competición actualmente.
+        </div>
+        </center>
+      {% endif %}
+      
+   
+    {% endblock %}
+  </body>
+</html>

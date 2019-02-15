@@ -1,0 +1,64 @@
+{% extends './header.html'%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ropa</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </head>
+  <body>
+  {% block header %}
+  <br>
+    
+    
+      {% if ropa %}
+        <div class="container">
+          <div class="divRopa">
+        {% for i in ropa %}
+        <center>
+        <div class="card" style="width: 20rem;">
+        <br>
+        <h3>{{i.Nombre}}</h3>
+        <br>
+          <img style="width:70px; heigth:80px;" src="/media/{{i.Imagen}}" class="card-img-top">
+          <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Tienda: {{i.Tienda}}</th>
+                <th>Precio: {{i.Precio}}€</th>
+              </tr>
+            </thead>
+          </table>
+            <a style="width:50%" href="{% url 'verarticulo' i.id %}" class="btn btn-primary">Más información</a>  
+            <br><br>
+            {% if i.user == request.user %}
+              <a  href="{% url 'ropaupdate' i.id %}" class="btn btn-info">Editar</a>
+              <a  href="{% url 'ropadelete' i.id %}" class="btn btn-danger">Eliminar</a>
+            {% endif %}
+          </div>
+            <div class="card-footer text-muted">
+              Dueño: {{i.user}}
+            </div>
+        </div>
+        <br>
+         </center>
+        {% endfor %}
+        </div>
+       </div>
+      {% else %}
+      <center>
+        <div style="width:60%;" class="alert alert-danger" role="alert">
+          Lo sentimos, no existen articulos actualmente. Recuerda que puedes crear tú alguno
+          <a class="btn btn-outline-danger" href="{% url 'addropa' %}">Crear</a>
+        </div>
+        </center>
+      {% endif %}
+      
+   
+    {% endblock %}
+  </body>
+</html>

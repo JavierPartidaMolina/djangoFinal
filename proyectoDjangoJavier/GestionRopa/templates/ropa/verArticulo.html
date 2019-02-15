@@ -1,0 +1,105 @@
+{% extends './header.html'%}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ropa</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+  {% block header %}
+  <br>  
+    <center>
+      <a class="btn btn-secondary" onclick="scrollWin()" style="color:white;">Ir a Preguntas</a>
+      &nbsp;
+      <a class="btn btn-info" onclick="imprimir()" style="color:white;">Imprimir Página</a>
+      <br><br>
+        <div class="card" style="width: 23rem;">
+        <br>
+        <h3>{{ropa.Nombre}}</h3>
+        <br>
+          <img style="width:70px; heigth:80px;" src="/media/{{ropa.Imagen}}" class="card-img-top">
+          <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Tienda: {{ropa.Tienda}}</th>
+                <th>Precio: {{ropa.Precio}}€</th>
+              </tr>
+              <tr>
+                <th>Talla: {{ropa.Talla}}</th>
+                <th></th>
+              </tr>
+              <tr>
+                <th>Tipo: {{ropa.Tipo}}</th>
+                <th>Tejido: {{ropa.Tejido}}</th>
+              </tr>
+            </thead>
+          </table>
+
+            {% if ropa.user == request.user %}
+              <a  href="{% url 'ropaupdate' ropa.id %}" class="btn btn-info">Editar</a>
+                <a  href="{% url 'ropadelete' ropa.id %}" class="btn btn-danger">Eliminar</a>
+            {% endif %}
+          </div>
+            <div class="card-footer text-muted">
+              Dueño: {{ropa.user}}
+            </div>
+        </div>
+        <br>
+    </center>
+    <br>
+    <center>
+      <h1>PREGUNTAS</h1>  
+      <br>
+      <form action="{% url 'formPregunta' ropa.id %}" method="POST">{% csrf_token %}
+        <div style="width:50%;" >
+          {{formPregunta.as_table}}
+        </div>
+        <br>
+        <input class="btn btn-primary"  onclick="return confirmar()" type="submit" value="Enviar"/>
+      </form>
+      <br>
+      {% if preguntas %}
+        {% for i in preguntas %}
+          <div class="sombra" style="background-color:#bcbcbc; width:50%;"> 
+            <h3 style="text-align:left">{{i.Pregunta}} {% if i.user.id == request.user.id %}
+              <a class="btn btn-danger" href="{% url 'preguntaDelete' i.id %}" > Eliminar </a>
+            {% endif %}</h3>
+            
+            {% if respuestas %}
+              {% for r in respuestas %}
+                {% if r.Pregunta_id == i.id %}
+                  <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Por: {{r.user}}</div>
+                    <div class="card-body">
+                      <p class="card-text">{{r.Respuesta}}</p>
+                      {% if r.user.id == request.user.id %}
+                        <a class="btn btn-danger" href="{% url 'respdelete' r.id %}" > Eliminar </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <br>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          <form action="{% url 'formRespuesta' i.id %}" method="POST">{% csrf_token %}
+            <div style="width:50%;" >
+              {{RespuestaForm.as_table}}
+            </div>
+            <br>
+            <input class="btn btn-primary" type="submit" value="Enviar"/>
+            <br><br>
+          </form>
+          </div>
+          
+          <br>
+        {% endfor %}
+      {% endif %}
+      <br>
+    </center>
+ 
+    {% endblock %}
+  
+  </body>
+</html>

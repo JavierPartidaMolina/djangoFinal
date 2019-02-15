@@ -1,0 +1,58 @@
+{% extends './header.html'%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Participaciones</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </head>
+  <body>
+  {% block header %}
+  <br>
+      <center><h1>Tus participaciones</h1></center>
+      <br>
+      {% if participaciones %}
+       
+        <center>
+        <br>
+          <div style = "width:50%;">
+          <table class="table">
+            <thead  class="thead-dark">
+                <tr>
+                    <th scope="col">Competición</th>
+                    <th scope="col">Posición</th>
+                </tr>     
+            </thead>
+            <tbody>
+             {% for i in participaciones %}
+              <tr>
+                <th>{{i.Competiciones}}</th>
+                {% if i.posicion == None %}
+                    <th>Sin asignar</th>
+                {% else %}
+                    <th>{{i.posicion}}º</th>
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table> 
+            <br><br>
+        </div>
+        <br>
+         </center>
+        
+      {% else %}
+      <center>
+        <div style="width:60%;" class="alert alert-danger" role="alert">
+          No has participado en ningun torneo.
+        </div>
+        </center>
+      {% endif %}
+      
+   
+    {% endblock %}
+  </body>
+</html>

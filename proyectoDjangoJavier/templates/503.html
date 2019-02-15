@@ -1,0 +1,250 @@
+<style>
+
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700');
+
+
+*{
+ /* outline:1px solid rgba(255,0,255,.2);*/
+}
+
+div, body{
+  margin:0;
+  padding:0;
+}
+
+body {
+  background:#F9F6ED;
+  font-family: 'Open Sans', sans-serif;
+  color:#666666;
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  height:100vh;
+}
+
+
+h2{
+  background:#F9F6ED;
+  font-weight:300;
+  text-align:center;
+  font-size:3em;
+  padding:30px;
+  margin:0;
+  color:#E1251B;
+  border-top:2px solid #E1251B;
+  border-bottom:2px solid #E1251B;
+  z-index:999;
+  outline:4px solid #F9F6ED;
+}
+
+.top{
+  text-align:right;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+}
+
+.container{
+  position:relative;
+  width:60%;
+  margin-top:-10%;
+}
+
+.bottom{
+  position:absolute;
+  width:100%;
+  bottom:10%;
+  left:0;
+  z-index:10;
+}
+
+
+.logo{
+  width:25vw;
+  padding:2vw;
+  margin-right:5vw;
+}
+
+.pendulo{
+  width:11%;
+  z-index:10;
+  position:absolute;
+  top:33%;
+  left:31%;
+  z-index:1;
+}
+
+
+.grua{
+  width:42%;
+  position:absolute;
+  bottom:7%;
+  left:0;
+  z-index:1;
+}
+
+
+.back{
+  padding-top:25%;
+  z-index:1;
+}
+
+.gear1{
+  width:15%;
+  position:absolute;
+  top:10%;
+  right:40%;
+  z-index:-1;
+}
+
+.gear2{
+  width:20%;
+  position:absolute;
+  top:15%;
+  right:18%;
+  z-index:-1;
+}
+
+.gear3{
+  width:10%;
+  position:absolute;
+  top:15%;
+  right:5%;
+  z-index:-1;
+}
+
+.gear4{
+  width:20%;
+  position:absolute;
+  top:32%;
+  right:0%;
+  z-index:-1;
+}
+
+/* Gears */
+
+@keyframes spin1 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-359deg) ;
+    transform: rotate(-359deg) ;
+  }
+}
+
+
+
+@keyframes spin2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg) ;
+    transform: rotate(359deg) ;
+  }
+}
+
+
+@keyframes swing {
+  0% { 
+      transform:rotate(0deg);
+  }
+  
+  25% { 
+      transform:rotate(5deg);
+  }
+  
+  50% { 
+      transform:rotate(0deg);
+  }
+  75% { 
+      transform:rotate(-5deg);
+  }  
+  100% {
+     transform:rotate(0deg);
+  }
+}
+
+
+
+.spin1 {
+  -webkit-animation: spin-one 5s infinite linear;
+  animation: spin1 5s infinite linear;
+}
+
+.spin2 {
+  -webkit-animation: spin-one 5s infinite linear;
+  animation: spin2 5s infinite linear;
+}
+
+.swing {
+  -webkit-animation: spin-one 2s infinite linear;
+  animation: swing 2s infinite linear;
+  transform-origin: 50% 0%;
+}
+
+
+@media only screen and (max-width: 768px){
+
+  .container{
+    margin-top:-20%;
+  }
+  
+  .container{
+    width:80%;  
+  }
+  
+  h2{
+     font-size:2em;
+  }
+  
+}
+
+
+@media only screen and (max-width: 460px){
+  .container{
+    margin-top:-25%;
+  }
+   h2{
+     font-size:1.5em;
+  }
+}
+</style>
+<div class="top">
+  <img class="logo" src="https://cdn-images-1.medium.com/max/1000/1*HVKOLLX7wprRbHTl2IPDcQ.png">
+</div>
+
+
+<div class="container"> 
+  
+  <img class="back" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/107855/back.svg">
+    
+  
+  <img class="pendulo swing" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/107855/pendulo.svg">
+  
+  
+  
+  
+  <img class="gear1 spin1" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/107855/gear.svg">
+
+  <img class="gear2 spin2" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/107855/gear.svg">
+   
+  <img class="gear3 spin1" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/107855/gear.svg">
+
+
+<img class="gear4 spin2" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/107855/gear.svg">
+
+
+    <img class="grua" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/107855/grua.svg">
+
+</div>
+
+ 
+<div class="bottom">
+  <h2>Mantenimiento Programado</h2>
+</div>
